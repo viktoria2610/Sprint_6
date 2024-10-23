@@ -13,7 +13,7 @@ class TestOrderPage:
             ('Петр', 'Петров', 'Санкт-Петербург, ул.Ленина, д.12', '+79998887766', 'Тест второго заказа', MainPageLocators.MAIN_ORDER_BUTTON)
         ]
     )
-
+    @allure.title('Создание заказа')
     @allure.description('Проверяем, что заказ успешно создан')
     def test_success_order(self, driver, close_cookie, name, last_name, address, phone, comment, order_button):
         expected_text = "Заказ оформлен"

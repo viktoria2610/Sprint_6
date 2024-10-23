@@ -3,6 +3,7 @@ import pytest
 from pages.main_page import MainPage
 
 class TestMainPage:
+    @allure.title('Проверка вопросов и ответов к ним')
     @allure.description('Проверяем, что при клике на вопрос правильный ответ')
     @pytest.mark.parametrize(
         'num, result',

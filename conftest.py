@@ -14,12 +14,18 @@ def driver():
     options.add_argument('--window-size=1920,1080')
     driver = webdriver.Firefox(options=options)
     driver.get(BASE_URL)
-    driver.implicitly_wait(5)
     yield driver
     driver.quit()
 
+class MainPage:
+    def __init__(self, driver):
+        self.driver = driver
+        self.confirm_cookie_button = MainPageLocators.CONFIRM_COOKIE_BUTTON
+
+    def click_confirm_cookie_button(self):
+        WebDriverWait(self.driver, 10).until(expected_conditions.element_to_be_clickable(self.confirm_cookie_button)).click()
 
 @pytest.fixture(scope="function")
 def close_cookie(driver):
-    # Закрываем окно с куки, если кнопка отображается и кликабельна
-    WebDriverWait(driver, 10).until(expected_conditions.element_to_be_clickable(MainPageLocators.CONFIRM_COOKIE_BUTTON)).click()
+    main_page = MainPage(driver)
+    main_page.click_confirm_cookie_button()
